@@ -3,17 +3,25 @@ let speed = 0;
 let planets = [];
 
 // define color
-let spaceColor = (20,30,31);
+let spaceC;
+
+let frameColor1 = 200;
+let frameColor2 = 180;
+let frameColor3 = 150;
+let windowC1 = 200;
+let interfareC; 
 
 function setup() {
   // create the canvas (1200px wide, 800px high)
   createCanvas(1200, 800);
-
+  
   // draw a border to help you see the size
   // this isn't compulsory (remove this code if you like)
-  strokeWeight(5);
-  rect(0, 0, width, height);
-  background(spaceColor);
+  spaceC = color(20,30,31);
+  interfareC = color(182, 116, 22,150); 
+  
+  rectMode(CENTER);
+  background(spaceC);
 }
 
 function draw() {
@@ -22,27 +30,23 @@ function draw() {
   // draw the space and planet
 
 
-  // draw window
+  // draw window frame
   push();
   strokeWeight(0);
-  fill(100);
-  rect(0,0,width, 100);
-  fill(60);
-  rect(0,80,width, 20);
+  fill(frameColor1);
+  rect(width/2,50,width, 100);
+  rect(width/2,height - 50,width, 100);
+  
+  fill(frameColor2);
+  rect(width/2,90,width, 20);
+  rect(width/2,height - 90,width, 20);
+
+  fill(frameColor3);
+  rect(135,height/2,70, height);
+  rect(1065,height/2,70, height);
  
-  fill(100);
-  rect(0,height - 100,width, 100);
-  fill(60);
-  rect(0,height - 100,width, 20);
- 
-  // beginShape();
-  // vertex(0, 0);
-  // vertex(100, 100);
-  // vertex(1100, 100);
-  // vertex(1200, 0);
-  endShape(close)
-  fill("red");
-  rect(300,height/2 +100,400,300);
+  fill(interfareC);
+  rect(width/2,height - 300,400,300);
   pop(close);
 
   
