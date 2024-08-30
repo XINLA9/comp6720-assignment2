@@ -1,6 +1,12 @@
 let SetSpeed = 50;
-let speed = 0;
-let planets = [];
+let speed = 2;
+let stars = [];
+let types = [
+  {color:[255,255,255],name:"normal stars", size: 1},
+  {color:[255,255,255],name:"white dwarf", size: 2},
+  {color:[169,30,25],name:"red gaint"},
+  {color:[98,173,212],name:"blue supergaint"}
+];
 
 // define color
 let spaceColor = (20,30,31);
@@ -14,6 +20,10 @@ function setup() {
   strokeWeight(5);
   rect(0, 0, width, height);
   background(spaceColor);
+
+  for(let i = 0; i <800; i++){
+    stars[i] = new star();
+  }
 }
 
 function draw() {
@@ -55,5 +65,40 @@ function draw() {
 function keyTyped() {
   if (key === " ") {
     saveCanvas("thumbnail.png");
+  }
+}
+
+class star {
+  constructor(){
+    this.x = random(-width, width);
+    this.y = random(-height, height);
+    this.zStart = random(width);
+    this.zPos = this.z;
+
+    
+    tpyeNum = random(0,1);
+    if (i < 0.9)
+    {this.starsType = types[0];
+    }else if(i >=0.9 && i < 0.93){
+
+    }else if (i >= 0.93 && i < 0.96){
+
+    }else if (i >= 0.93 && i < 0.96){
+
+    }
+  }
+
+  move(){
+    this.z - speed;
+    if (this.zPos < 1){
+      this.x = random(-width, width);
+      this.y = random(-height, height);
+      this.zStart = random(width);
+      this.zPos = this.z;
+    }
+  }
+
+  draw(){
+
   }
 }
