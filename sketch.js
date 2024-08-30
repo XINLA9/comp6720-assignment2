@@ -37,20 +37,20 @@ function draw() {
   // your cool workstation code goes in this draw function
 
   // draw window frame
-  push();
-  strokeWeight(0);
-  fill(100);
-  rect(0, 0, width, 100);
-  fill(60);
-  rect(0, 80, width, 20);
+  // push();
+  // strokeWeight(0);
+  // fill(100);
+  // rect(0, 0, width, 100);
+  // fill(60);
+  // rect(0, 80, width, 20);
 
-  fill(100);
-  rect(0, height - 100, width, 100);
-  fill(60);
-  rect(0, height - 100, width, 20);
+  // fill(100);
+  // rect(0, height - 100, width, 100);
+  // fill(60);
+  // rect(0, height - 100, width, 20);
 
-  fill("red");
-  rect(300, height / 2 + 100, 400, 300);
+  // fill("red");
+  // rect(300, height / 2 + 100, 400, 300);
   // draw the space and planet
 
 
