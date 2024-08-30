@@ -1,27 +1,18 @@
-let SetSpeed = 50;
 let speed = 2;
 let stars = [];
-let types = [
-  {color:[255,255,255],name:"normal stars", size: 1},
-  {color:[255,255,255],name:"white dwarf", size: 2},
-  {color:[169,30,25],name:"red gaint"},
-  {color:[98,173,212],name:"blue supergaint"}
-];
-
-// define color
-let spaceColor = (20,30,31);
 
 function setup() {
   // create the canvas (1200px wide, 800px high)
   createCanvas(1200, 800);
-
+  
   // draw a border to help you see the size
   // this isn't compulsory (remove this code if you like)
   strokeWeight(5);
   rect(0, 0, width, height);
-  background(spaceColor);
 
-  for(let i = 0; i <800; i++){
+  background(color(20, 30, 31));
+
+  for (let i = 0; i < 800; i++) {
     stars[i] = new star();
   }
 }
@@ -29,33 +20,28 @@ function setup() {
 function draw() {
   // your cool workstation code goes in this draw function
 
-  // draw the space and planet
-
-
   // draw window
   push();
   strokeWeight(0);
   fill(100);
-  rect(0,0,width, 100);
+  rect(0, 0, width, 100);
   fill(60);
-  rect(0,80,width, 20);
- 
+  rect(0, 80, width, 20);
+
   fill(100);
-  rect(0,height - 100,width, 100);
+  rect(0, height - 100, width, 100);
   fill(60);
-  rect(0,height - 100,width, 20);
- 
-  // beginShape();
-  // vertex(0, 0);
-  // vertex(100, 100);
-  // vertex(1100, 100);
-  // vertex(1200, 0);
-  endShape(close)
+  rect(0, height - 100, width, 20);
+
   fill("red");
-  rect(300,height/2 +100,400,300);
+  rect(300, height / 2 + 100, 400, 300);
   pop(close);
 
-  
+  for (let s of stars){
+    s.move();
+    s.draw();
+  }
+
   // draw the workstation
 
 }
@@ -69,28 +55,38 @@ function keyTyped() {
 }
 
 class star {
-  constructor(){
+  constructor() {
     this.x = random(-width, width);
     this.y = random(-height, height);
-    this.zStart = random(width);
+    this.z = random(width);
     this.zPos = this.z;
 
-    
-    tpyeNum = random(0,1);
-    if (i < 0.9)
-    {this.starsType = types[0];
-    }else if(i >=0.9 && i < 0.93){
 
-    }else if (i >= 0.93 && i < 0.96){
+    let types = [
+      { color: [255, 255, 255], name: "normal stars", size: 1 },
+      { color: [244, 254, 255], name: "white dwarf", size: 2 },
+      { color: [169, 30, 25], name: "red gaint", size: 4 },
+      { color: [98, 173, 212], name: "blue supergaint", size: 3 }
+    ];
 
-    }else if (i >= 0.93 && i < 0.96){
-
+    let tpyeNum = random(0, 1);
+    if (
+      tpyeNum < 0.9) {
+      this.starsType = types[0];
+    } else if (
+      tpyeNum >= 0.9 && tpyeNum < 0.93) {
+      this.starsType = types[1];
+    } else if (
+      tpyeNum >= 0.93 && tpyeNum < 0.96) {
+      this.starsType = types[2];
+    } else if (tpyeNum >= 0.96) {
+      this.starsType = types[3];
     }
   }
 
-  move(){
-    this.z - speed;
-    if (this.zPos < 1){
+  move() {
+    this.zPos -= speed;
+    if (this.zPos < 1) {
       this.x = random(-width, width);
       this.y = random(-height, height);
       this.zStart = random(width);
@@ -98,7 +94,25 @@ class star {
     }
   }
 
-  draw(){
+  draw() {
+    
+    push();
+    fill(this.starsType.color);
+
+    noStroke();
+
+    let sx = map(this.x / this.z, 0, 1, 0, width);
+    let sy = map(this.y / this.z, 0, 1, 0, height);
+
+    let r = map(this.zPos, 0, width, this.starsType.size, 0); 
+    ellipse(sx, sy, r, r);
+
+    this.zPos = this.z;
+
+    stroke(255);
+    line(px,py,sx,sy);
+
+    pop()
 
   }
 }
