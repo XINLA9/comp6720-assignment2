@@ -1,10 +1,21 @@
 let speed = 2;
 let stars = [];
+let SetSpeed = 50;
+let planets = [];
+
+// define color
+let spaceC;
+
+let frameColor1 = 200;
+let frameColor2 = 180;
+let frameColor3 = 150;
+let windowC1 = 200;
+let interfareC; 
 
 function setup() {
   // create the canvas (1200px wide, 800px high)
   createCanvas(1200, 800);
-  
+    
   // draw a border to help you see the size
   // this isn't compulsory (remove this code if you like)
   strokeWeight(5);
@@ -15,12 +26,17 @@ function setup() {
   for (let i = 0; i < 800; i++) {
     stars[i] = new star();
   }
+  spaceC = color(20,30,31);
+  interfareC = color(182, 116, 22,150); 
+  
+  rectMode(CENTER);
+  background(spaceC);
 }
 
 function draw() {
   // your cool workstation code goes in this draw function
 
-  // draw window
+  // draw window frame
   push();
   strokeWeight(0);
   fill(100);
@@ -35,6 +51,26 @@ function draw() {
 
   fill("red");
   rect(300, height / 2 + 100, 400, 300);
+  // draw the space and planet
+
+
+  // draw window frame
+  push();
+  strokeWeight(0);
+  fill(frameColor1);
+  rect(width/2,50,width, 100);
+  rect(width/2,height - 50,width, 100);
+  
+  fill(frameColor2);
+  rect(width/2,90,width, 20);
+  rect(width/2,height - 90,width, 20);
+
+  fill(frameColor3);
+  rect(135,height/2,70, height);
+  rect(1065,height/2,70, height);
+ 
+  fill(interfareC);
+  rect(width/2,height - 300,400,300);
   pop(close);
 
   for (let s of stars){
