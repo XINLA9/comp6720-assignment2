@@ -1,4 +1,4 @@
-let speed = 2;
+let speed = 5;
 let stars = [];
 let SetSpeed = 50;
 let planets = [];
@@ -21,39 +21,27 @@ function setup() {
   strokeWeight(5);
   rect(0, 0, width, height);
 
-  background(color(20, 30, 31));
+  background(0);
 
-  for (let i = 0; i < 800; i++) {
+  for (let i = 0; i < 600; i++) {
     stars[i] = new star();
   }
   spaceC = color(20,30,31);
   interfareC = color(182, 116, 22,150); 
   
   rectMode(CENTER);
-  background(spaceC);
 }
 
 function draw() {
   // your cool workstation code goes in this draw function
-
-  // draw window frame
-  // push();
-  // strokeWeight(0);
-  // fill(100);
-  // rect(0, 0, width, 100);
-  // fill(60);
-  // rect(0, 80, width, 20);
-
-  // fill(100);
-  // rect(0, height - 100, width, 100);
-  // fill(60);
-  // rect(0, height - 100, width, 20);
-
-  // fill("red");
-  // rect(300, height / 2 + 100, 400, 300);
-  // draw the space and planet
-
-
+  push();
+  translate(width / 2, height / 2)
+  background(0);
+  for (let i = 0; i < stars.length; i++) {
+    stars[i].update();
+    stars[i].show();
+  }
+  pop();
   // draw window frame
   push();
   strokeWeight(0);
@@ -73,10 +61,6 @@ function draw() {
   rect(width/2,height - 300,400,300);
   pop(close);
 
-  for (let s of stars){
-    s.move();
-    s.draw();
-  }
 
   // draw the workstation
 
@@ -95,8 +79,6 @@ class star {
     this.x = random(-width, width);
     this.y = random(-height, height);
     this.z = random(width);
-    this.zPos = this.z;
-
 
     let types = [
       { color: [255, 255, 255], name: "normal stars", size: 1 },
@@ -120,17 +102,16 @@ class star {
     }
   }
 
-  move() {
-    this.zPos -= speed;
-    if (this.zPos < 1) {
+  update() {
+    this.z -= speed;
+    if (this.z < 1) {
       this.x = random(-width, width);
       this.y = random(-height, height);
-      this.zStart = random(width);
-      this.zPos = this.z;
+      this.z = width;
     }
   }
 
-  draw() {
+  show() {
     
     push();
     fill(this.starsType.color);
@@ -140,14 +121,8 @@ class star {
     let sx = map(this.x / this.z, 0, 1, 0, width);
     let sy = map(this.y / this.z, 0, 1, 0, height);
 
-    let r = map(this.zPos, 0, width, this.starsType.size, 0); 
+    let r = map(this.z, 0, width, this.starsType.size * 8, 0); 
     ellipse(sx, sy, r, r);
-
-    this.zPos = this.z;
-
-    stroke(255);
-    line(px,py,sx,sy);
-
     pop()
 
   }
