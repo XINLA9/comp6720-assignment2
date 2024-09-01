@@ -1,19 +1,7 @@
 let stars = [];
-
 let speed = 5;
 let setSpeed = 5;
 let spaceshipActive = true;
-
-let coverHeight = 500;
-let coverActive = false;
-let lightActive = true;
-
-// define color
-let frameColor1 = 100;
-let frameColor2 = 70;
-let frameColor3 = 50;
-let windowC1 = 200;
-let interfareC;
 
 function setup() {
   // create the canvas (1200px wide, 800px high)
@@ -27,8 +15,6 @@ function setup() {
   for (let i = 0; i < 600; i++) {
     stars[i] = new star();
   }
-
-
 
   rectMode(CENTER);
 }
@@ -59,17 +45,24 @@ function draw() {
 
   // your cool workstation code goes in this draw function
 
+  drawCover()
+
   drawWindowFrame()
+
+  drawScreem();
 
   drawControlPanel();
 
-  drawCover()
-
   drawLight()
 
-  // draw the workstation
-
 }
+
+// define color
+let frameColor1 = 100;
+let frameColor2 = 70;
+let frameColor3 = 50;
+let windowC1 = 200;
+let interfareC;
 
 function drawWindowFrame() {
   push();
@@ -94,45 +87,111 @@ function drawControlPanel() {
   // interfareC = color(255, 255, 255, 50);
 
   // Drawing the Operator Panel Background
+  fill(180);
+  rect(width / 2, height - 50, 50, 200);
   fill(interfareC);
   rect(width / 2, height - 250, 300, 200);
   fill(234, 169, 39, 100);
   rect(width / 2 - 100, height - 250, 80, 180);
+  rect(width / 2 + 45, height - 200, 180, 80);
+  fill(255, 255, 255, 200);
+  rect(width / 2 + 45, height - 300, 180, 80);
 
-  // Drawing the Operator Panel Background
+  // Drawing acceleration, deceleration, start/stop buttons
   fill(234, 169, 39);
   noStroke();
-  triangle(width / 2 - 100, height - 250, width / 2 - 80, height - 270, width / 2 - 120, height - 270); // Up arrow (accelerate)
-  triangle(width / 2 - 100, height - 200, width / 2 - 80, height - 230, width / 2 - 120, height - 230); // Down arrow (decelerate)
-
-  // Drawing the Operator Panel Background
+  triangle(width / 2 - 100, height - 332, width / 2 - 80, height - 302, width / 2 - 120, height - 302); // Up arrow (accelerate)
+  triangle(width / 2 - 100, height - 244, width / 2 - 80, height - 274, width / 2 - 120, height - 274); // Down arrow (decelerate)
   fill(255, 37, 39);
-  ellipse(width / 2 - 100, height - 250, 50, 50); // Circle button (start/stop)
+  ellipse(width / 2 - 100, height - 198, 40, 40); // Circle button (start/stop)
 
-  // Drawing the Operator Panel Background
-  fill(50, 150, 255);
-  rect(width / 2 + 100, height - 250, 50, 50);
+  // Drawing light switches and visor switches
+  fill(255, 255, 0);
+  ellipse(width / 2 - 10, height - 198, 40, 40); // Circle button for light
+  fill(150, 255, 150);
+  ellipse(width / 2 + 45, height - 198, 40, 40); // Circle button for cover
+  fill(150, 150, 250);
+  ellipse(width / 2 + 100, height - 198, 40, 40); // Circle button for screem
+
+  // Display button name
+  textSize(12);
+  fill(255);
+  textAlign(CENTER, CENTER);
+  text("Accelerate", width / 2 - 100, height - 287);
+  text("Decelerate", width / 2 - 100, height - 227);
+  text("Start/Stop", width / 2 - 100, height - 168);
+  text("Light", width / 2 - 10, height - 168);
+  text("Cover", width / 2 + 45, height - 168);
+  text("Screem", width / 2 + 100, height - 168);
+
+  // Displaying the ship's status
+  textSize(15);
+  fill(255, 255, 0);
+  text("Speed: " + Math.round(speed), width / 2, height - 300);
+  fill(255, 37, 39);
+  text("Spaceship: " + (spaceshipActive ? "Active" : "Inactive"), width / 2, height - 270);
 }
 
+let screemHeight = -200;
+let screemActive = false;
+function drawScreem() {
+  interfareC = color(182, 116, 42, 180);
+
+  // Drawing the Operator Panel Background
+  fill(180);
+  rect(width / 2, screemHeight - 250, 50, 200);
+  fill(180,180,180,100);
+  rect(width / 2, screemHeight, 500, 300);
+  fill(255, 255, 255, 200);
+  rect(width / 2, screemHeight, 480, 280);
+
+  if (screemActive) {
+    screemHeight += 3;
+  }
+  else {
+    screemHeight -= 3;
+  }
+  if (screemHeight > 250) {
+    screemHeight = 250
+  }
+  else if (coverHeight < -200) {
+    screemHeight = -200;
+  }
+  pop();
+}
+
+let coverHeight = 800;
+let coverActive = false;
+
 function drawCover() {
-  fill(0);
-  rect(width / 2, coverHeight, width, 100);
+  push();
+  rectMode(CORNER);
+  stroke(40);
+  fill(24, 32, 32);
+  rect(-20, coverHeight, 290, 600);
+  rect(170, coverHeight, 290, 600);
+  rect(460, coverHeight, 290, 600);
+  rect(750, coverHeight, 300, 600);
+  rect(1050, coverHeight, 300, 600);
 
 
   if (coverActive) {
-    coverHeight += 5;
+    coverHeight -= 3;
   }
   else {
-    coverHeight -= 5;
+    coverHeight += 3;
   }
   if (coverHeight > 800) {
     coverHeight = 800
   }
-  else if (coverHeight < 300) {
-    coverHeight = 300;
+  else if (coverHeight < 100) {
+    coverHeight = 100;
   }
+  pop();
 
 }
+
+let lightActive = true;
 
 function drawLight() {
   noStroke();
@@ -183,6 +242,16 @@ function mousePressed() {
     else {
       spaceshipActive = true;
     }
+  }
+
+  // Check if mouse is over the light switch
+  if (dist(mouseX, mouseY, width / 2 - 200, height - 250) < 25) {
+    lightActive = !lightActive; // Toggle light state
+  }
+
+  // Check if mouse is over the cover switch
+  if (dist(mouseX, mouseY, width / 2 + 200, height - 250) < 25) {
+    coverActive = !coverActive; // Toggle cover state
   }
 }
 
