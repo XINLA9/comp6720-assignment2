@@ -2,7 +2,7 @@
 
 - What my artwork is.
 
-My work faster than ligh is a control console for a spaceship bridge that is flying faster than light in space. This console provides a wealth of functions to interact with, including acceleration, deceleration, start/stop, light and screen control, as well as starting and closing of the outer shield of the spaceship.
+My work faster than ligh is a control console simulator for a spaceship bridge that is flying faster than light in space. This console provides a wealth of functions to interact with, including acceleration, deceleration, start/stop, light and screen control, as well as starting and closing of the outer shield of the spaceship.
 
 - How my artwork is rewarding to the viewer.
 
