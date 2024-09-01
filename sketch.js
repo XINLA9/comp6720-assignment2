@@ -103,22 +103,22 @@ function drawControlPanel() {
   triangle(width / 2 - 100, height - 332, width / 2 - 80, height - 302, width / 2 - 120, height - 302); // Up arrow (accelerate)
   triangle(width / 2 - 100, height - 244, width / 2 - 80, height - 274, width / 2 - 120, height - 274); // Down arrow (decelerate)
   fill(255, 37, 39);
-  ellipse(width / 2 - 100, height - 198, 40, 40); // Circle button (start/stop)
+  ellipse(width / 2 - 100, height - 199, 40, 40); // Circle button (start/stop)
 
   // Drawing light switches and visor switches
   fill(255, 255, 0);
-  ellipse(width / 2 - 10, height - 198, 40, 40); // Circle button for light
+  ellipse(width / 2 - 10, height - 199, 40, 40); // Circle button for light
   fill(150, 255, 150);
-  ellipse(width / 2 + 45, height - 198, 40, 40); // Circle button for cover
+  ellipse(width / 2 + 45, height - 199, 40, 40); // Circle button for cover
   fill(150, 150, 250);
-  ellipse(width / 2 + 100, height - 198, 40, 40); // Circle button for screem
+  ellipse(width / 2 + 100, height - 199, 40, 40); // Circle button for screem
 
   // Display button name
   textSize(12);
   fill(255);
   textAlign(CENTER, CENTER);
   text("Accelerate", width / 2 - 100, height - 287);
-  text("Decelerate", width / 2 - 100, height - 227);
+  text("Decelerate", width / 2 - 100, height - 230);
   text("Start/Stop", width / 2 - 100, height - 168);
   text("Light", width / 2 - 10, height - 168);
   text("Cover", width / 2 + 45, height - 168);
@@ -126,13 +126,13 @@ function drawControlPanel() {
 
   // Displaying the ship's status
   textSize(15);
-  fill(255, 255, 0);
-  text("Speed: " + Math.round(speed), width / 2, height - 300);
-  fill(255, 37, 39);
-  text("Spaceship: " + (spaceshipActive ? "Active" : "Inactive"), width / 2, height - 270);
+  textAlign(LEFT);
+  fill(100);
+  text("Speed: " + Math.round(speed) + " km/s", width / 2 - 30, height - 310);
+  text("Spaceship: " + (spaceshipActive ? "Active" : "Inactive"), width / 2 - 30, height - 280);
 }
 
-let screemHeight = -200;
+let screemHeight = -150;
 let screemActive = false;
 function drawScreem() {
   interfareC = color(182, 116, 42, 180);
@@ -154,8 +154,8 @@ function drawScreem() {
   if (screemHeight > 250) {
     screemHeight = 250
   }
-  else if (coverHeight < -200) {
-    screemHeight = -200;
+  else if (screemHeight < -150) {
+    screemHeight = -150;
   }
   pop();
 }
@@ -220,40 +220,40 @@ function drawLight() {
 
 function mousePressed() {
   // Check if mouse is over the up arrow (accelerate)
-  if (mouseX > width / 2 - 120 && mouseX < width / 2 - 80 && mouseY > height - 300 && mouseY < height - 270) {
+  if (mouseX > width / 2 - 120 && mouseX < width / 2 - 80 && mouseY > height - 332 && mouseY < height - 302) {
     if (setSpeed < 20) {
       setSpeed += 1; // Increase speed
     }
   }
 
   // Check if mouse is over the down arrow (decelerate)
-  if (mouseX > width / 2 - 120 && mouseX < width / 2 - 80 && mouseY > height - 230 && mouseY < height - 200) {
-    if (setSpeed > 1) {
-      setSpeed -= 1; // Increase speed
+  if (mouseX > width / 2 - 120 && mouseX < width / 2 - 80 && mouseY > height - 274 && mouseY < height - 244) {
+    if (setSpeed > 5) {
+      setSpeed -= 1; // Decrease speed
     }
-
   }
 
   // Check if mouse is over the circle button (start/stop)
-  if (dist(mouseX, mouseY, width / 2 + 100, height - 250) < 25) {
-    if (spaceshipActive == true) {
-      spaceshipActive = false;
-    }
-    else {
-      spaceshipActive = true;
-    }
+  if (dist(mouseX, mouseY, width / 2 - 100, height - 198) < 20) {
+    spaceshipActive = !spaceshipActive; // Toggle spaceship state
   }
 
   // Check if mouse is over the light switch
-  if (dist(mouseX, mouseY, width / 2 - 200, height - 250) < 25) {
+  if (dist(mouseX, mouseY, width / 2 - 10, height - 198) < 20) {
     lightActive = !lightActive; // Toggle light state
   }
 
   // Check if mouse is over the cover switch
-  if (dist(mouseX, mouseY, width / 2 + 200, height - 250) < 25) {
+  if (dist(mouseX, mouseY, width / 2 + 45, height - 198) < 20) {
     coverActive = !coverActive; // Toggle cover state
   }
+
+  // Check if mouse is over the screem switch
+  if (dist(mouseX, mouseY, width / 2 + 100, height - 198) < 20) {
+    screemActive = !screemActive; // Toggle screem state
+  }
 }
+
 
 // when you hit the spacebar, what's currently on the canvas will be saved (as a
 // "thumbnail.png" file) to your downloads folder
